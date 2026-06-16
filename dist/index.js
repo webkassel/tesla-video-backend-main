@@ -732,20 +732,29 @@ async function createContext(opts) {
 
 // server/_core/cors.ts
 function corsMiddleware(req, res, next) {
-  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [
-    process.env.FRONTEND_URL || "http://localhost:5173"
-  ];
   const origin = req.headers.origin;
-  if (origin && allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    origin || "https://tesla-video-player-5pwrxqpt6-webkassel1.vercel.app"
+  );
+
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,DELETE,OPTIONS"
+  );
+
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, x-trpc-source, trpc-accept"
+  );
+
   res.setHeader("Access-Control-Allow-Credentials", "true");
+
   if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-    return;
+    return res.sendStatus(200);
   }
+
   next();
 }
 
