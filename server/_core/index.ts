@@ -1,3 +1,4 @@
+import path from "path";
 import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
@@ -65,6 +66,13 @@ async function startServer() {
     });
   });
 
+  app.get("/api/videos/stream/:fileKey", (req, res) => {
+  const fileKey = req.params.fileKey;
+
+  const filePath = path.join(process.cwd(), "DOWNLOAD_PATH", fileKey);
+
+  res.sendFile(filePath);
+});
   const preferredPort = parseInt(process.env.PORT || "3000");
   const port = await findAvailablePort(preferredPort);
 
