@@ -585,7 +585,7 @@ async def download_video(queue_id: int, user_id: int, url: str, youtube_id: str,
         file_size = os.path.getsize(downloaded_file)
         
         # File key and URL for storage
-file_key = f"videos/{user_id}/{youtube_id}.mp4"
+        file_key = f"videos/{user_id}/{youtube_id}.mp4"
         file_url = f"/api/videos/stream/{youtube_id}.mp4"
         
         # Create video record
