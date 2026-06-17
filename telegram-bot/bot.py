@@ -475,7 +475,7 @@ def download_video_with_ytdlp_sync(youtube_id: str, url: str) -> tuple:
         # Use mweb client which works well with PO tokens
      'extractor_args': {
     'youtube': {
-        'player_client': ['android'],
+        'player_client': ['mweb'],
     }
 },
         # Prefer MP4 format for Tesla browser compatibility
