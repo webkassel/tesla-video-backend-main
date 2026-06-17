@@ -52,7 +52,20 @@ async function startServer() {
   app.get("/health", (_req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
-  
+
+  app.get("/api/videos/stream/:userId/:fileName", (req, res) => {
+  const { userId, fileName } = req.params;
+
+  const filePath = path.join(
+    process.cwd(),
+    "DOWNLOAD_PATH",
+    "videos",
+    userId,
+    fileName
+  );
+
+  res.sendFile(filePath);
+});
   // Root endpoint
   app.get("/", (_req, res) => {
     res.json({ 
