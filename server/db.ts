@@ -16,7 +16,7 @@ export async function getDb() {
 });
       _db = drizzle(client);
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+     console.error("[Database] CRITICAL - Failed to connect:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
       _db = null;
     }
   }
@@ -111,7 +111,7 @@ import {
 // Telegram Session Management
 export async function createTelegramSession(session: InsertTelegramSession) {
   const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  if (!db) throw new Error(`Database not available - DATABASE_URL set: ${!!process.env.DATABASE_URL}`);
 
   await db.insert(telegramSessions).values(session);
 }
